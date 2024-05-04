@@ -1,7 +1,7 @@
-## Appendix for COMP2211 Exam Notes - Database
+# Appendix for COMP2211 Exam Notes - Database
 
-#### XML Syntax and Examples
-###### Basic Tags Structure 
+### XML Syntax and Examples
+##### Basic Tags Structure 
 ```xml
 <element-name>
     <subelement-name>Data</subelement-name>
@@ -28,7 +28,7 @@ Case also matters (for tags) :
 <ELEMENT-NAME>upper case tags</ELEMENT-NAME>
 ```
 \
-###### XML Attributes
+##### XML Attributes
 Subelements can have the same attribute name with the element :
 ```xml
 <student verified="yes" id="0001">
@@ -55,7 +55,7 @@ Some attributes can be represented as subelements :
 </student>
 ```
 \
-###### Well Formed XML
+##### Well Formed XML
 1. Has XML declaration
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -72,7 +72,7 @@ Some attributes can be represented as subelements :
 </root>
 ```
 \
-###### DTD for XML
+##### DTD for XML
 External DTD :
 ```xml
 <!ELEMENT Root (Element*)>
@@ -113,7 +113,7 @@ Or to have an internal DTD :
 ]>
 ```
 \
-#### XPath
+### XPath
 The example XML :
 ```xml
 <root>
@@ -207,8 +207,8 @@ code
 * XPath's position starts at 1
 
 /
-#### XQuery
-###### Basic Composition
+### XQuery
+##### Basic Composition
 ```xquery
 FOR or LET $[variable] IN or := [XPath]
 WHERE [condition]
@@ -236,7 +236,7 @@ While LET returns a list of multiplel variables :
 </result>
 ```
 \
-###### Functions
+##### Functions
 ```xquery distinct-values([XPath])``` : No duplication
 ```xquery text()``` : Text only
 ```xquery contains(variable, value)``` : Contains a string
@@ -250,7 +250,7 @@ max()
 sum()
 ```
 \
-###### Double Iterations
+##### Double Iterations
 Get variables based on other variables :
 ```xquery
 FOR $x IN doc("file.xml")//student
@@ -268,7 +268,7 @@ WHERE $x/@id = $y/@id
 RETURN {$x, $y/score}
 ```
 \
-###### Nested Queries
+##### Nested Queries
 ```xquery
 FOR $x IN doc("file.xml")//student
 RETURN {
@@ -279,7 +279,7 @@ RETURN {
 <result>id=0002</result>
 ```
 \
-###### Order By
+##### Order By
 ```xquery
 FOR $x IN doc("file.xml")//department
 ORDER BY $x
@@ -290,7 +290,7 @@ RETURN {$x}
 <result><department>Law</department></result>
 ```
 \
-###### If Then Else
+##### If Then Else
 ```xquery
 For $x IN doc("file.xml")//student
 RETURN {
@@ -304,7 +304,7 @@ RETURN {
 <result><department>Law</department></result>
 ```
 \
-###### Quantifiers
+##### Quantifiers
 Return ```$x``` if one ```$y``` matches :
 ```xquery
 WHERE SOME $y IN $x SATISFIES [condition] 
