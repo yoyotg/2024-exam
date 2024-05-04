@@ -1,7 +1,7 @@
 ## Appendix for COMP2211 Exam Notes - Database
 
 #### XML Syntax and Examples
-###### Basic tags structure 
+###### Basic Tags Structure 
 ```xml
 <element-name>
     <subelement-name>Data</subelement-name>
@@ -28,7 +28,7 @@ Case also matters (for tags) :
 <ELEMENT-NAME>upper case tags</ELEMENT-NAME>
 ```
 \
-###### XML attributes
+###### XML Attributes
 Subelements can have the same attribute name with the element :
 ```xml
 <student verified="yes" id="0001">
@@ -205,3 +205,111 @@ code
 </student>
 ```
 * XPath's position starts at 1
+
+/
+#### XQuery
+###### Basic Composition
+```xquery
+FOR or LET $[variable] IN or := [XPath]
+WHERE [condition]
+RETURN {[output]}
+```
+Example :
+```xquery
+FOR $x IN doc("file.xml")/root/student
+WHERE $x/@id = "0002"
+RETURN {$x/department}
+```
+```xml
+<department>Law</department>
+```
+FOR returns multiple variables :
+```xml
+<result><department>Computer Science</department></result>
+<result><department>Law</department></result>
+```
+While LET returns a list of multiplel variables :
+```xml
+<result>
+    <department>Computer Science</department>
+    <department>Law</department>
+</result>
+```
+\
+###### Functions
+```xquery distinct-values([XPath])``` : No duplication
+```xquery text()``` : Text only
+```xquery contains(variable, value)``` : Contains a string
+
+Aggergate functions for LET :
+```xquery
+avg()
+count()
+min()
+max()
+sum()
+```
+\
+###### Double Iterations
+Get variables based on other variables :
+```xquery
+FOR $x IN doc("file.xml")//student
+    $y IN doc("file.xml")//student[@idref=$x/@id]
+RETURN <result>{$y/name/text()}</result>
+```
+```xml
+<result>Bob</result>
+```
+Also works with multiple files :
+```xquery
+FOR $x IN doc("file.xml")//student
+    $y IN doc("anotherfile.xml")//student
+WHERE $x/@id = $y/@id
+RETURN {$x, $y/score}
+```
+\
+###### Nested Queries
+```xquery
+FOR $x IN doc("file.xml")//student
+RETURN {
+    FOR $y IN doc("file.xml")//student[@fd-idref=$x/@id]
+}
+```
+```xml
+<result>id=0002</result>
+```
+\
+###### Order By
+```xquery
+FOR $x IN doc("file.xml")//department
+ORDER BY $x
+RETURN {$x}
+```
+```xml
+<result><department>Computer Science</department></result>
+<result><department>Law</department></result>
+```
+\
+###### If Then Else
+```xquery
+For $x IN doc("file.xml")//student
+RETURN {
+    IF $x/@id == 0001
+        THEN $x/department/code
+    ELSE $x/department/course
+}
+```
+```xml
+<result><code>G400</code></result>
+<result><department>Law</department></result>
+```
+\
+###### Quantifiers
+Return ```$x``` if one ```$y``` matches :
+```xquery
+WHERE SOME $y IN $x SATISFIES [condition] 
+```
+Return ```$x``` if all ```$y``` match :
+```xquery
+WHERE Every $y IN $x SATISFIES [condition] 
+```
