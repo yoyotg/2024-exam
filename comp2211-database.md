@@ -235,6 +235,7 @@ While LET returns a list of multiplel variables :
     <department>Law</department>
 </result>
 ```
+* The ```<result>``` tag has to be added as ```RETURN <result> {$x} </result>```
 \
 ##### Functions
 ```xquery distinct-values([XPath])``` : No duplication
@@ -255,7 +256,7 @@ Get variables based on other variables :
 ```xquery
 FOR $x IN doc("file.xml")//student
     $y IN doc("file.xml")//student[@idref=$x/@id]
-RETURN <result>{$y/name/text()}</result>
+RETURN <result> {$y/name/text()} </result>
 ```
 ```xml
 <result>Bob</result>
@@ -276,7 +277,7 @@ RETURN {
 }
 ```
 ```xml
-<result>id=0002</result>
+id=0002
 ```
 \
 ##### Order By
@@ -286,8 +287,8 @@ ORDER BY $x
 RETURN {$x}
 ```
 ```xml
-<result><department>Computer Science</department></result>
-<result><department>Law</department></result>
+<department>Computer Science</department>
+<department>Law</department>
 ```
 \
 ##### If Then Else
@@ -300,8 +301,8 @@ RETURN {
 }
 ```
 ```xml
-<result><code>G400</code></result>
-<result><department>Law</department></result>
+<code>G400</code>
+<department>Law</department>
 ```
 \
 ##### Quantifiers
