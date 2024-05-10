@@ -314,3 +314,39 @@ Return ```$x``` if all ```$y``` match :
 ```xquery
 WHERE Every $y IN $x SATISFIES [condition] 
 ```
+\
+### Distributed Deadlocks
+##### Steps
+1. Find pairs of conflicted Ts in the same site, where at least one of them is writing on the same data
+2. Draw the local WFGs with T_est
+3. Combine the local WFGs one by one
+4. If there is a cycle in the final (i.e. global WFG) = Deadlock
+\
+##### Deciding the arrows from/to T_est
+\* Example taken from 2023PP
+Site S1 and S2's local WFGs orginally look like this
+![Step 1 of drawing test arrows](images/step1-test.png)
+Now look at the T1 from S1, check the T1 in the other site, we can see that T1 is waited by some transactions (doesn't matter which for now) in S2 - an external site
+![Step 2 of drawing test arrows](images/step2-test.png)
+So there will be an arrow from T_ext to T1 in S1, and indicate that it is a transaction in S2 that is waiting for T1
+![Step 3 of drawing test arrow](images/step3-test.png)
+For T2 in S1, we can see that T2 is waiting for some transaction in S2, so this time an arrow will be drawn from T2 to T_ext, also stating the wait is in S2
+![Step 4 of drawing test arrows](images/step4-test.png)
+Same for S2
+![Step 5 of drawing test arrows](images/step5-test.png)
+\
+##### 2023PP Question 1b
+![Table supplied in the question](images/wfg-2023pp.png)
+
+1. Find pairs of conflicted Ts
+![Step 1 of finding distributed deadlocks](images/step1-wfg-2023pp.png)
+(We can't draw on the question paper so this part is probably optional)
+\
+2. Draw local WFGs
+![Step 2 of finding distributed deadlocks](images/step2-wfg-2023pp.png)
+\
+3. Combining Site S1 and S2
+![Step 3 of finding distributed deadlocks](images/step3-wfg-2023pp.png)
+
+4. Combining the rest -- A deadlock (cycle) is found
+![Step 4 of finding distributed deadlocks](images/step4-wfg-2023pp.png)
