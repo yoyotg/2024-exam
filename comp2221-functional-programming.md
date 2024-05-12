@@ -116,6 +116,7 @@ List of (default) type classes :
 | ```Functors``` | Mappable |
 | ```Foldables``` | Reducible |
 | ```Monad``` | Provide structure and composition |
+| ```Integral``` | ```Int``` and ```Integer``` |
 
 \
 ### Lists
@@ -199,3 +200,14 @@ map f xs = foldr (\x xs -> (f x) : xs) [] xs
 ```
 * No need to add ```(x:xs)``` in ```map``` yet cus this will be decoupled when passed to ```foldr```
 * ```(\x xs -> (f x) : xs)``` is the actuall mapping part
+
+\
+##### [2023PP-Q2.b]
+```haskell
+m !! n
+```
+```!!``` = Get the nth element in the list m
+```haskell
+[1, 2, 3] !! 0
+-- Return 1
+```
